@@ -1,0 +1,50 @@
+.resizer {
+  background: #000;
+  z-index: 1;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+
+  @apply opacity-20 bg-neutral-300 transition-opacity;
+}
+
+.resizer.horizontal {
+  height: 7px;
+  margin: -3px 0;
+  cursor: row-resize;
+  width: 100%;
+
+  @apply border-y-[3px] border-sky-500 border-opacity-0;
+}
+
+.resizer.horizontal:hover {
+  @apply border-y-[3px] border-sky-500 border-opacity-100;
+}
+
+.resizer.vertical {
+  width: 7px;
+  margin: 0 -3px;
+  cursor: col-resize;
+  @apply border-x-[3px] border-sky-500 border-opacity-0;
+}
+
+.resizer.vertical:hover {
+  @apply border-x-[3px] border-sky-500 border-opacity-100;
+}
+.resizer.disabled {
+  cursor: not-allowed;
+}
+.resizer.disabled:hover {
+  border-color: transparent;
+}
+
+.resizer:hover {
+  @apply opacity-40 bg-sky-500;
+}
+
+.resizer.active {
+  @apply opacity-100 bg-sky-500;
+}
