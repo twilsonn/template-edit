@@ -22,7 +22,7 @@ const Editor: React.FC<IEditorProps> = (props) => {
   };
 
   return (
-    <div className="w-full h-full bg-black">
+    <div className="w-full h-full bg-[#1e1e1e] border-b border-neutral-700">
       <Monaco
         theme="vs-dark"
         options={{
@@ -34,6 +34,7 @@ const Editor: React.FC<IEditorProps> = (props) => {
         defaultValue={editorContent}
         onMount={handleOnMount}
         onChange={handleOnChange}
+        className="pt-1"
       />
     </div>
   );

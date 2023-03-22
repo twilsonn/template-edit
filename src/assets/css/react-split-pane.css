@@ -41,10 +41,13 @@
   border-color: transparent;
 }
 
-.resizer:hover {
+.resizer.vertical:hover,
+.resizer.horizontal:hover {
   @apply opacity-40 bg-sky-500;
 }
 
-.resizer.active {
-  @apply opacity-100 bg-sky-500;
+.resizer.vertical.active,
+.resizer.horizontal.active {
+  opacity: 1 !important;
+  @apply bg-sky-500;
 }

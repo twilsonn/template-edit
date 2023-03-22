@@ -5,7 +5,9 @@ import {
   SplitPaneProps,
 } from "react-split-pane";
 
-interface ISplitPane extends SplitPaneProps {}
+interface ISplitPane extends SplitPaneProps {
+  className?: string;
+}
 
 const SplitPane: React.FC<PropsWithChildren<ISplitPane>> = (props) => {
   const [isResizing, setIsResising] = useState(false);
@@ -30,6 +32,7 @@ const SplitPane: React.FC<PropsWithChildren<ISplitPane>> = (props) => {
     <ReactSplitPane
       {...props}
       resizerClassName={isResizing ? "resizer active" : "resizer"}
+      className={`${props.className} overflow-hidden`}
       onDragStarted={handleDragStarted}
       onDragFinished={handleDragFinished}
     />
