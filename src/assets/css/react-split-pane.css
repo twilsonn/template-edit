@@ -12,31 +12,33 @@
 }
 
 .resizer.horizontal {
-  height: 7px;
-  margin: -3px 0;
-  cursor: row-resize;
+  height: 5px;
+  margin: -2px 0;
+  cursor: ns-resize;
   width: 100%;
 
-  @apply border-y-[3px] border-blue-500 border-opacity-0;
+  @apply border-y-[2px] border-blue-600 border-opacity-0;
 }
 
 .resizer.horizontal:hover {
-  @apply border-blue-500 border-opacity-100;
+  @apply border-blue-600 border-opacity-100;
 }
 
 .resizer.vertical {
-  width: 7px;
-  margin: 0 -3px;
-  cursor: col-resize;
-  @apply border-x-[3px] border-blue-500 border-opacity-0;
+  width: 5px;
+  margin: 0 -2px;
+  cursor: ew-resize;
+  @apply border-x-[2px] border-blue-600 border-opacity-0;
 }
 
 .resizer.vertical:hover {
-  @apply border-blue-500 border-opacity-100;
+  @apply border-blue-600 border-opacity-100;
 }
+
 .resizer.disabled {
   cursor: not-allowed;
 }
+
 .resizer.disabled:hover {
   border-color: transparent;
 }
@@ -44,11 +46,11 @@
 .resizer.vertical:hover,
 .resizer.horizontal:hover {
   transition-delay: 200ms;
-  @apply opacity-100 border-blue-500 bg-blue-500;
+  @apply opacity-100 border-blue-600 bg-blue-600;
 }
 
 .resizer.vertical.active,
 .resizer.horizontal.active {
   opacity: 1 !important;
-  @apply border-blue-500 bg-blue-500;
+  @apply border-blue-600 bg-blue-600;
 }
