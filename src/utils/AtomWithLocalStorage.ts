@@ -11,12 +11,13 @@ const atomWithLocalStorage = <T>(key: string, initialValue: T) => {
 
   const baseAtom = atom<T>(getInitialValue());
 
-  const derivedAtom = atom(
+  const derivedAtom = atom<T, T[], void>(
     (get) => get(baseAtom),
     (get, set, update) => {
       const nextValue =
-        typeof update === "function" ? update(get(baseAtom)) : update;
+        typeof update === "function" ? update(get(baseAtom)) : (update as T);
       set(baseAtom, nextValue);
+
       localStorage.setItem(key, JSON.stringify(nextValue));
     }
   );
