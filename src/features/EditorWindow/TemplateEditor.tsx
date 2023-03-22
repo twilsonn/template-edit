@@ -10,14 +10,17 @@ interface ITemplateEditor {
 }
 
 const TemplateEditor: React.FC<ITemplateEditor> = ({ height, width }) => {
-  const [templates, setTemplates] = useAtom(templatesAtom);
+  const [{ activeTemplate, templates }, setTemplates] = useAtom(templatesAtom);
   const [map, actions] = useMap(templates);
-  const [activeTemplate, setActiveTemplate] = useState(map.get("default"));
 
   const handleEditorOnChange: (content: string) => void = (content) => {
-    if (activeTemplate) {
-      actions.set("default", { ...activeTemplate, content });
-      setTemplates(Array.from(map.entries()));
+    const currentTemplate = map.get(activeTemplate);
+    if (currentTemplate) {
+      actions.set(activeTemplate, { ...currentTemplate, content });
+      setTemplates({
+        activeTemplate,
+        templates: Array.from(map.entries()),
+      });
     }
   };
 
@@ -25,7 +28,7 @@ const TemplateEditor: React.FC<ITemplateEditor> = ({ height, width }) => {
     <Editor
       height={height}
       width={width}
-      initialContent={map.get("default")?.content || ""}
+      initialContent={map.get(activeTemplate)?.content || ""}
       language="twig"
       onChange={handleEditorOnChange}
     />
