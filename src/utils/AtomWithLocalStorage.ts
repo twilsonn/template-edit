@@ -23,4 +23,4 @@ const atomWithLocalStorage = <T>(key: string, initialValue: T) => {
   return derivedAtom;
 };
 
-export default atomWithLocalStorage;
+export { atomWithLocalStorage };
