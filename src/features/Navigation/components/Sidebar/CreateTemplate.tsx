@@ -6,7 +6,6 @@ import Button from "../../../../components/Button";
 import Input from "../../../../components/Input";
 import Select from "../../../../components/Select";
 import Modal from "../../../../components/Modal";
-import { useMap } from "usehooks-ts";
 import { uniqueId } from "../../../../utils/generateId";
 
 export const createTemplateModalOpen = atom(false);
@@ -23,15 +22,19 @@ const CreateTemplate = () => {
     evt.preventDefault();
 
     const template = {
-      id: uniqueId(),
-      content: "",
+      content: "placeholder",
       lastUpdated: new Date(Date.now()).getTime(),
       name: name,
     };
 
+    const id = uniqueId();
+
     setTemplates({
-      activeTemplate: template.id,
-      templates: [...Array.from(templates), [template.id, template]],
+      activeTemplate: id,
+      templates: {
+        ...templates,
+        [id]: template,
+      },
     });
 
     return setOpen(false);

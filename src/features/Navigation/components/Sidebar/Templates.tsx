@@ -13,9 +13,16 @@ const Templates = () => {
         <CreateTemplate />
       </div>
       <ul className="sidebar--template-list">
-        {Array.from(templates).map(([id, template]) => {
+        {Object.entries(templates).map(([id, template]) => {
           const { name, lastUpdated } = template;
-          return <TemplateItem key={id} name={name} lastUpdate={lastUpdated} />;
+          return (
+            <TemplateItem
+              key={id}
+              id={id}
+              name={name}
+              lastUpdate={lastUpdated}
+            />
+          );
         })}
       </ul>
     </div>

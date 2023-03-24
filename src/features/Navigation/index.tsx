@@ -1,9 +1,12 @@
 import { Logo, Menu } from "@/assets/icons";
 import React, { useState } from "react";
 import Sidebar from "./components/Sidebar";
+import { atom, useAtom } from "jotai";
+
+export const sidebarControlAtom = atom(false);
 
 const Navigation = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useAtom(sidebarControlAtom);
 
   const handleMenuOnClick = () => {
     setOpen(!open);
