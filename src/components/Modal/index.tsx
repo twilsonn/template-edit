@@ -2,8 +2,6 @@ import React, { PropsWithChildren, useRef } from "react";
 import { Portal } from "react-portal";
 import { useOnClickOutside } from "usehooks-ts";
 
-import "./index.css";
-
 interface IModal {
   open: boolean;
   setOpen: (open: boolean) => void;

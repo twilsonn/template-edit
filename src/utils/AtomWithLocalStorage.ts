@@ -2,7 +2,10 @@ import { atom } from "jotai";
 
 const atomWithLocalStorage = <T>(key: string, initialValue: T) => {
   const getInitialValue = (): T => {
-    const item = localStorage.getItem(key);
+    let item = null;
+    if (process.browser) {
+      item = localStorage.getItem(key);
+    }
     if (item !== null) {
       return JSON.parse(item);
     }
@@ -18,7 +21,9 @@ const atomWithLocalStorage = <T>(key: string, initialValue: T) => {
         typeof update === "function" ? update(get(baseAtom)) : (update as T);
       set(baseAtom, nextValue);
 
-      localStorage.setItem(key, JSON.stringify(nextValue));
+      if (process.browser) {
+        localStorage.setItem(key, JSON.stringify(nextValue));
+      }
     }
   );
   return derivedAtom;

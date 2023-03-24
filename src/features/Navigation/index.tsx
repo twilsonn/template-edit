@@ -1,6 +1,5 @@
+import { Logo, Menu } from "@/assets/icons";
 import React, { useState } from "react";
-import { Logo } from "../../assets/icons/Logo";
-import { Menu } from "../../assets/icons/Menu";
 import Sidebar from "./components/Sidebar";
 
 const Navigation = () => {

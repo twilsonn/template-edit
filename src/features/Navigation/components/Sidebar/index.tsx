@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import { Footer } from "./Footer";
 
-import "./index.css";
 import { Templates } from "./Templates";
 import { createTemplateModalOpen } from "./CreateTemplate";
 import { useAtom } from "jotai";

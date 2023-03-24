@@ -1,9 +1,8 @@
 import React from "react";
 import { useAtom } from "jotai";
 import { useElementSize } from "usehooks-ts";
-
-import SplitPane from "./components/SplitPane";
 import { editorPaneSizeAtom } from "./state";
+import SplitPane from "./components/SplitPane";
 import { TemplateEditor } from "./TemplateEditor";
 import DataEditor from "./DataEditor";
 

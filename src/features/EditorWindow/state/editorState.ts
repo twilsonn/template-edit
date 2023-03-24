@@ -1,4 +1,5 @@
-import { atomWithLocalStorage } from "../../../utils/AtomWithLocalStorage";
+"use client";
+import { atomWithLocalStorage } from "@/utils/AtomWithLocalStorage";
 
 interface IEditorPaneSize {
   width?: number;

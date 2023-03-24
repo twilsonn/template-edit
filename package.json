@@ -1,21 +1,28 @@
 {
-  "name": "template-editor",
+  "name": "template-edit",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.4.6",
     "jotai": "^2.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-portal": "^4.2.2",
     "react-split-pane": "^0.1.92",
-    "usehooks-ts": "^2.9.1"
+    "usehooks-ts": "^2.9.1",
+    "@types/node": "18.15.7",
+    "@types/react": "18.0.29",
+    "@types/react-dom": "18.0.11",
+    "eslint": "8.36.0",
+    "eslint-config-next": "13.2.4",
+    "next": "13.2.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "typescript": "5.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
