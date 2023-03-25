@@ -12,12 +12,12 @@
 }
 
 .resizer.horizontal {
-  height: 5px;
-  margin: -2px 0;
+  height: 7px;
+  margin: -3px 0;
   cursor: ns-resize;
   width: 100%;
 
-  @apply border-y-[2px] border-blue-600 border-opacity-0;
+  @apply border-y-[3px] border-blue-600 border-opacity-0;
 }
 
 .resizer.horizontal:hover {
@@ -25,10 +25,10 @@
 }
 
 .resizer.vertical {
-  width: 5px;
-  margin: 0 -2px;
+  width: 7px;
+  margin: 0 -3px;
   cursor: ew-resize;
-  @apply border-x-[2px] border-blue-600 border-opacity-0;
+  @apply border-x-[3px] border-blue-600 border-opacity-0;
 }
 
 .resizer.vertical:hover {
