@@ -54,3 +54,7 @@
   opacity: 1 !important;
   @apply border-blue-600 bg-blue-600;
 }
+
+.SplitPane.active * {
+  @apply pointer-events-none;
+}

@@ -28,7 +28,9 @@ const SplitPane: React.FC<PropsWithChildren<ISplitPane>> = (props) => {
     <ReactSplitPane
       {...props}
       resizerClassName={isResizing ? "resizer active" : "resizer"}
-      className={`${props.className} overflow-hidden`}
+      className={`${props.className} overflow-hidden ${
+        isResizing ? "active" : ""
+      }`}
       onDragStarted={handleDragStarted}
       onDragFinished={handleDragFinished}
     />

@@ -5,12 +5,7 @@ import { editorSizeAtom } from "@/features/EditorWindow/state";
 import { useEffect, useMemo, useRef } from "react";
 
 const defaultHead = `
-  <style>
-    // html {
-    //   width: 100%;
-    //   height: 100%;
-    // }
-  </style>
+  <title>Editor</title>
 `;
 
 const RendererWindow = () => {
@@ -54,8 +49,10 @@ const RendererWindow = () => {
 
   return (
     <iframe
+      name="Editor"
       style={{
         width: window.width - editor.width,
+        height: window.height,
       }}
       ref={contentRef}
     />
