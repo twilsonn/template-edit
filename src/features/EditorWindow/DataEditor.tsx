@@ -14,12 +14,20 @@ const DataEditor: React.FC<IDataEditor> = ({ height, width }) => {
   const updateTemplate = (newData: any) => {
     const currentTemplate = templates[activeTemplate];
 
-    if (currentTemplate) {
+    let data;
+
+    try {
+      data = JSON.parse(newData);
+    } catch (error) {
+      return;
+    }
+
+    if (currentTemplate && data) {
       const newVersion = {
         [activeTemplate]: {
           ...currentTemplate,
           lastUpdated: new Date(Date.now()).getTime(),
-          data: JSON.parse(newData),
+          data,
         },
       };
 
