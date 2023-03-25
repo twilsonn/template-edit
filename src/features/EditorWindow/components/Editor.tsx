@@ -1,6 +1,6 @@
 import { default as Monaco, OnChange, OnMount } from "@monaco-editor/react";
-import React, { forwardRef, useCallback } from "react";
 import debounce from "lodash.debounce";
+import React, { forwardRef, useCallback, useEffect, useMemo } from "react";
 
 interface IEditorProps {
   setEditorContent: (content: string) => void;
@@ -28,6 +28,12 @@ const Editor = forwardRef<typeof Monaco, IEditorProps>(function Editor(
     if (ref) {
       // @ts-ignore
       ref.current = editor;
+    }
+
+    if (language === "json") {
+      setTimeout(function () {
+        editor.getAction("editor.action.formatDocument").run();
+      }, 50);
     }
 
     monaco.languages.registerCompletionItemProvider("html", {
@@ -73,10 +79,16 @@ const Editor = forwardRef<typeof Monaco, IEditorProps>(function Editor(
     setEditorContent(content || "");
   };
 
-  // const debouncedChangeHandler = useCallback(
-  //   debounce((content: string) => setEditorContent(content), 300),
-  //   [setEditorContent]
-  // );
+  const debouncedChangeHandler = useMemo(
+    () => debounce(handleOnChange, 500),
+    []
+  );
+
+  useEffect(() => {
+    return () => {
+      debouncedChangeHandler.cancel();
+    };
+  }, []);
 
   return (
     <div className="w-full h-full bg-[#1e1e1e] border-b border-neutral-700 overflow-hidden">
@@ -85,7 +97,7 @@ const Editor = forwardRef<typeof Monaco, IEditorProps>(function Editor(
         options={options}
         defaultLanguage={language}
         defaultValue={initialContent}
-        onChange={handleOnChange}
+        onChange={debouncedChangeHandler}
         onMount={handleOnMount}
         height={height}
         width={width}
