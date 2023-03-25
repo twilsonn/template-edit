@@ -1,17 +1,26 @@
 "use client";
 import { atomWithLocalStorage } from "@/utils/AtomWithLocalStorage";
 
-interface IEditorPaneSize {
-  width?: number;
-  height?: number;
+interface IEditorSize {
+  editor: {
+    width: number;
+    height: number;
+  };
+  window: {
+    width: number;
+    height: number;
+  };
 }
 
-const editorPaneSizeAtom = atomWithLocalStorage<IEditorPaneSize>(
-  "editor.pane.size",
-  {
-    width: undefined,
-    height: undefined,
-  }
-);
+const editorSizeAtom = atomWithLocalStorage<IEditorSize>("editor.size", {
+  editor: {
+    width: 0,
+    height: 0,
+  },
+  window: {
+    width: 0,
+    height: 0,
+  },
+});
 
-export { editorPaneSizeAtom };
+export { editorSizeAtom };

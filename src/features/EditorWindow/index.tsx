@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAtom } from "jotai";
 import { useElementSize } from "usehooks-ts";
-import { editorPaneSizeAtom } from "./state";
+import { editorSizeAtom } from "./state";
 import SplitPane from "./components/SplitPane";
 import { TemplateEditor } from "./TemplateEditor";
 import DataEditor from "./DataEditor";
+import RendererWindow from "./components/RendererWindow";
 
 const EditorWindow: React.FC = () => {
   const [contentRef, { width, height }] = useElementSize();
-
-  const [ediorSize, setEditorSize] = useAtom(editorPaneSizeAtom);
-  const { width: editorWidth, height: editorHeight } = ediorSize;
+  const [{ editor, window }, setSize] = useAtom(editorSizeAtom);
+  const { width: editorWidth, height: editorHeight } = editor;
 
   const sizes = {
     minSize: 200,
@@ -21,18 +21,34 @@ const EditorWindow: React.FC = () => {
   };
 
   const handleEditorHeightOnChange: (newSize: number) => void = (newSize) => {
-    return setEditorSize({
-      width: editorWidth,
-      height: newSize,
+    return setSize({
+      window,
+      editor: {
+        width: editorWidth,
+        height: newSize,
+      },
     });
   };
 
   const handleEditorWidthOnChange: (newSize: number) => void = (newSize) => {
-    return setEditorSize({
-      width: newSize,
-      height: editorHeight,
+    return setSize({
+      window,
+      editor: {
+        width: newSize,
+        height: editorHeight,
+      },
     });
   };
+
+  useEffect(() => {
+    setSize({
+      editor,
+      window: {
+        width,
+        height,
+      },
+    });
+  }, [width, height]);
 
   return (
     <div ref={contentRef} className="flex-grow relative">
@@ -66,7 +82,7 @@ const EditorWindow: React.FC = () => {
         </SplitPane>
 
         {/* render preview */}
-        <div />
+        <RendererWindow />
       </SplitPane>
     </div>
   );

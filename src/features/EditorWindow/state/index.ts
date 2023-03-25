@@ -1,2 +1,2 @@
-export { editorPaneSizeAtom } from "./editorState";
+export { editorSizeAtom } from "./editorState";
 export { templatesAtom } from "./templateState";
