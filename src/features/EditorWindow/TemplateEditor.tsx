@@ -41,7 +41,7 @@ const TemplateEditor: React.FC<ITemplateEditor> = ({ height, width }) => {
     if (currentTemplate) {
       const newVersion = {
         [activeTemplate]: {
-          name: currentTemplate.name,
+          ...currentTemplate,
           lastUpdated: new Date(Date.now()).getTime(),
           content: newContent,
         },
