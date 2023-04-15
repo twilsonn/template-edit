@@ -25,7 +25,7 @@ const IconButton: React.FC<PropsWithChildren<IIconButton>> = ({
       } ${className}`}
     >
       <p>{children}</p>
-      <Icon className={`w-4 h-4 text-neutral-200 ${iconClassName}`} />
+      <Icon className={`text-neutral-200 ${iconClassName}`} />
     </button>
   );
 };
