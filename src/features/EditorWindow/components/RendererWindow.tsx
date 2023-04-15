@@ -1,8 +1,13 @@
-import { useAtom } from "jotai";
+import { useEffect, useMemo, useRef } from "react";
+import { useAtom, useAtomValue } from "jotai";
 import { twig } from "twig";
+import { encode } from "js-base64";
+import { decrypt } from "crypto-js/aes";
+import Utf8 from "crypto-js/enc-utf8";
+
 import { templatesAtom } from "@/features/EditorWindow/state";
 import { editorSizeAtom } from "@/features/EditorWindow/state";
-import { useEffect, useMemo, useRef } from "react";
+import { filesAtom } from "@/features/FileUpload";
 
 const defaultHead = `
   <title>Editor</title>
@@ -10,8 +15,9 @@ const defaultHead = `
 
 const RendererWindow = () => {
   const [{ activeTemplate, templates }] = useAtom(templatesAtom);
+  const { window, editor } = useAtomValue(editorSizeAtom);
   const contentRef = useRef<HTMLIFrameElement>(null);
-  const [{ window, editor }, setSize] = useAtom(editorSizeAtom);
+  const files = useAtomValue(filesAtom);
 
   const twigTemplate = useMemo(
     () =>
@@ -19,6 +25,21 @@ const RendererWindow = () => {
         data: templates[activeTemplate].content,
       }),
     [templates, activeTemplate]
+  );
+
+  const getFileElement = useMemo(
+    () =>
+      (name: string): HTMLElement => {
+        const encodedName = encode(name);
+        const file = files[encodedName];
+
+        if (!file) throw new Error("file not found");
+
+        const element = document.createElement(file.type);
+        element.innerHTML = decrypt(file.content, "test").toString(Utf8);
+        return element;
+      },
+    [files]
   );
 
   useEffect(() => {
@@ -29,23 +50,41 @@ const RendererWindow = () => {
     if (contentRef.current) {
       if (contentRef.current.contentWindow) {
         const window = contentRef.current.contentWindow;
-
-        window.document.body.innerHTML = "";
-        window.document.head.innerHTML = defaultHead;
+        const body = window.document.body;
+        const head = window.document.head;
+        body.innerHTML = "";
+        head.innerHTML = defaultHead;
+        Array.from(body.attributes).forEach((attr) =>
+          body.removeAttributeNode(attr)
+        );
 
         const headElements = fragment.querySelectorAll("link,script,style");
 
         if (headElements) {
           headElements.forEach((node) => {
             node.remove();
-            window.document.head.appendChild(node);
+
+            const src = node.getAttribute("src");
+            const href = node.getAttribute("href");
+
+            const fileLocation = src || href;
+
+            if (fileLocation && fileLocation.startsWith("files/")) {
+              try {
+                const name = fileLocation.split("/")[1];
+                const element = getFileElement(name);
+                body.appendChild(element);
+              } catch (error) {}
+            } else {
+              body.appendChild(node);
+            }
           });
         }
 
         window.document.body.appendChild(fragment);
       }
     }
-  }, [activeTemplate, templates, twigTemplate]);
+  }, [activeTemplate, getFileElement, templates, twigTemplate]);
 
   return (
     <iframe
