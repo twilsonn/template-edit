@@ -1,11 +1,11 @@
 import React from "react";
-import { PenToSquare } from "../../../../assets/icons";
-import Button from "../../../../components/Button";
-import { TrashCan } from "../../../../assets/icons/TrashCan";
+import { PenToSquare } from "../../../../../assets/icons";
+import Button from "../../../../../components/Button";
+import { TrashCan } from "../../../../../assets/icons/TrashCan";
 import { templatesAtom } from "@/features/EditorWindow/state";
 import { useAtom } from "jotai";
 import { createTemplateModalOpen } from "./CreateTemplate";
-import { sidebarControlAtom } from "../..";
+import { sidebarControlAtom } from "../../..";
 
 interface ITemplateItem {
   id: string;
@@ -36,11 +36,15 @@ const TemplateItem: React.FC<ITemplateItem> = ({ name, lastUpdate, id }) => {
         </p>
       </div>
       <div className="flex items-center space-x-2">
-        <Button.Icon Icon={PenToSquare} onClick={handleEditOnClick} />
+        <Button.Icon
+          Icon={PenToSquare}
+          iconClassName="w-5 h-5"
+          onClick={handleEditOnClick}
+        />
         <Button.Icon
           Icon={TrashCan}
           className="group"
-          iconClassName="group-hover:text-red-600"
+          iconClassName="group-hover:text-red-600 w-5 h-5"
         />
       </div>
     </li>

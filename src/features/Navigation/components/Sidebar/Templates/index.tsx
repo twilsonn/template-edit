@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { templatesAtom } from "../../../EditorWindow/state";
+import { templatesAtom } from "../../../../EditorWindow/state";
 import TemplateItem from "./TemplateItem";
 import { CreateTemplate } from "./CreateTemplate";
 
@@ -29,4 +29,4 @@ const Templates = () => {
   );
 };
 
-export { Templates };
+export default Templates;

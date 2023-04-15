@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { atom, useAtom } from "jotai";
-import { Plus } from "../../../../assets/icons";
-import { templatesAtom } from "../../../EditorWindow/state";
-import Button from "../../../../components/Button";
-import Input from "../../../../components/Input";
-import Select from "../../../../components/Select";
-import Modal from "../../../../components/Modal";
-import { uniqueId } from "../../../../utils/generateId";
+import { Plus } from "../../../../../assets/icons";
+import { templatesAtom } from "../../../../EditorWindow/state";
+import Button from "../../../../../components/Button";
+import Input from "../../../../../components/Input";
+import Select from "../../../../../components/Select";
+import Modal from "../../../../../components/Modal";
+import { uniqueId } from "../../../../../utils/generateId";
 
 export const createTemplateModalOpen = atom(false);
 
@@ -25,6 +25,7 @@ const CreateTemplate = () => {
       content: "placeholder",
       lastUpdated: new Date(Date.now()).getTime(),
       name: name,
+      data: {},
     };
 
     const id = uniqueId();
