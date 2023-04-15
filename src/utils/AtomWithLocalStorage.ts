@@ -5,9 +5,11 @@ const atomWithLocalStorage = <T>(key: string, initialValue: T) => {
     let item = null;
     if (process.browser) {
       item = localStorage.getItem(key);
-    }
-    if (item !== null) {
-      return JSON.parse(item);
+      if (item !== null) {
+        return JSON.parse(item);
+      } else {
+        localStorage.setItem(key, JSON.stringify(initialValue));
+      }
     }
     return initialValue;
   };
