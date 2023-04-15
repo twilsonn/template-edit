@@ -1,9 +1,10 @@
 import React, { useRef } from "react";
 import { Footer } from "./Footer";
 
-import { Templates } from "./Templates";
-import { createTemplateModalOpen } from "./CreateTemplate";
+import Templates from "./Templates";
+import { createTemplateModalOpen } from "./Templates/CreateTemplate";
 import { useAtom } from "jotai";
+import Files from "./Files";
 
 interface ISidebar {
   open: boolean;
@@ -35,6 +36,7 @@ const Sidebar: React.FC<ISidebar> = ({ open, setOpen }) => {
         className="h-full bg-neutral-900 w-full max-w-lg flex flex-col justify-between"
       >
         <Templates />
+        <Files />
         <Footer />
       </div>
     </div>
