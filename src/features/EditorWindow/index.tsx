@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useElementSize } from "usehooks-ts";
-import { editorSizeAtom } from "./state";
+import { editorSizeAtom, templatesAtom } from "./state";
 import SplitPane from "./components/SplitPane";
 import { TemplateEditor } from "./TemplateEditor";
 import DataEditor from "./DataEditor";
-import RendererWindow from "./components/RendererWindow";
+import Renderer from "../Renderer";
 
 const EditorWindow: React.FC = () => {
   const [contentRef, { width, height }] = useElementSize();
   const [{ editor, window }, setSize] = useAtom(editorSizeAtom);
   const { width: editorWidth, height: editorHeight } = editor;
+  const { templates, activeTemplate } = useAtomValue(templatesAtom);
 
   const sizes = {
     minSize: 200,
@@ -82,7 +83,11 @@ const EditorWindow: React.FC = () => {
         </SplitPane>
 
         {/* render preview */}
-        <RendererWindow />
+        <Renderer
+          type={templates[activeTemplate]?.type}
+          content={templates[activeTemplate]?.content}
+          data={templates[activeTemplate]?.data}
+        />
       </SplitPane>
     </div>
   );
