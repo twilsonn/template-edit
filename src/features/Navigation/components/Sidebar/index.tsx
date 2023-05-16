@@ -28,12 +28,12 @@ const Sidebar: React.FC<ISidebar> = ({ open, setOpen }) => {
 
   return (
     <div
-      className={`sidebar ${open ? "open" : ""}`}
+      className={`sidebar ${open ? "open backdrop-blur-sm" : ""}`}
       onClick={handleBackdropClick}
     >
       <div
         ref={sidebarRef}
-        className="h-full bg-neutral-900 w-full max-w-lg flex flex-col justify-between"
+        className="h-full  bg-neutral-900 w-full max-w-lg flex flex-col justify-between"
       >
         <Templates />
         <Files />
