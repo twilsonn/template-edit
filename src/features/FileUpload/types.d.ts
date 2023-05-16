@@ -3,6 +3,7 @@ declare interface IFile {
   content: string;
   type: string;
   lastModified: number;
+  html: string;
 }
 
 declare interface IFiles {

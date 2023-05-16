@@ -40,14 +40,18 @@ const FileUpload: React.FC = () => {
           reader.onload = () => {
             if (reader.result && typeof reader.result === "string") {
               const encrypted = encrypt(reader.result, "test");
-
+              const type = getTypeFromExtention(file.name);
               setFiles({
                 ...files,
                 [encode(file.name)]: {
                   name: file.name,
                   content: encrypted.toString(),
-                  type: getTypeFromExtention(file.name),
+                  type,
                   lastModified: file.lastModified,
+                  html:
+                    type === "script"
+                      ? `<script src="files/${file.name}"></script>`
+                      : `<link href="files/${file.name}" />`,
                 },
               });
             }

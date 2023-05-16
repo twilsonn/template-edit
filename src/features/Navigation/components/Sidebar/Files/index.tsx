@@ -6,7 +6,7 @@ const Files = () => {
   const files = useAtomValue(filesAtom);
 
   return (
-    <div className="pt-4 overflow-hidden">
+    <div className="pt-4 overflow-hidden min-h-[24rem]">
       <div className="h-8 flex items-center px-4 justify-between">
         <h3 className="font-semibold text-xl">Files</h3>
         <FileUpload />
