@@ -1,6 +1,7 @@
-import React, { forwardRef, useEffect, useMemo } from "react";
+import React, { forwardRef, useEffect, useMemo, useState } from "react";
 import { default as Monaco, OnChange, OnMount } from "@monaco-editor/react";
 import debounce from "lodash.debounce";
+import { BarLoader } from "react-spinners";
 
 interface IEditorProps {
   setEditorContent: (content: string) => void;
@@ -23,6 +24,7 @@ const Editor = forwardRef<typeof Monaco, IEditorProps>(function Editor(
   ref
 ) {
   const { initialContent, language, setEditorContent, height, width } = props;
+  const [loading, setLoading] = useState(true);
 
   const handleOnMount: OnMount = (editor, m) => {
     if (ref) {
@@ -35,6 +37,10 @@ const Editor = forwardRef<typeof Monaco, IEditorProps>(function Editor(
         editor.getAction("editor.action.formatDocument")?.run();
       }, 50);
     }
+
+    setTimeout(() => {
+      setLoading(false);
+    }, 2500);
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,6 +54,14 @@ const Editor = forwardRef<typeof Monaco, IEditorProps>(function Editor(
   );
 
   useEffect(() => {
+    // @ts-ignore
+    if (ref && ref.current) {
+      // @ts-ignore
+      ref.current.getAction("editor.action.formatDocument")?.run();
+    }
+  }, [language]);
+
+  useEffect(() => {
     return () => {
       debouncedChangeHandler.cancel();
     };
@@ -55,16 +69,24 @@ const Editor = forwardRef<typeof Monaco, IEditorProps>(function Editor(
 
   return (
     <div className="w-full h-full bg-[#1e1e1e] border-b border-neutral-700 overflow-hidden">
-      <Monaco
-        theme="vs-dark"
-        options={options}
-        defaultLanguage={language}
-        defaultValue={initialContent}
-        onChange={debouncedChangeHandler}
-        onMount={handleOnMount}
-        height={height}
-        width={width}
-      />
+      <div className={`w-full h-full ${loading ? "hidden" : ""}`}>
+        <Monaco
+          theme="vs-dark"
+          options={options}
+          defaultLanguage={language}
+          defaultValue={initialContent}
+          onChange={debouncedChangeHandler}
+          onMount={handleOnMount}
+          height={height}
+          width={width}
+        />
+      </div>
+
+      {loading && (
+        <div className="absolute z-50 top-0 left-0 flex w-full h-full items-center justify-center">
+          <BarLoader color="#3b82f6" />
+        </div>
+      )}
     </div>
   );
 });
