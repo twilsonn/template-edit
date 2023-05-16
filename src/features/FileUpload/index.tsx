@@ -35,6 +35,8 @@ const FileUpload: React.FC = () => {
         if (e.target.files) {
           const file = e.target.files[0];
 
+          if (file.size > 5242880) return;
+
           const reader = new FileReader();
 
           reader.onload = () => {
@@ -75,6 +77,7 @@ const FileUpload: React.FC = () => {
       >
         Upload File
       </Button.Icon>
+
       <input
         ref={fileInputRef}
         className="hidden"
