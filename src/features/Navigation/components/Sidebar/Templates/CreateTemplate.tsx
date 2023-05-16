@@ -7,6 +7,7 @@ import Input from "../../../../../components/Input";
 import Select from "../../../../../components/Select";
 import Modal from "../../../../../components/Modal";
 import { uniqueId } from "../../../../../utils/generateId";
+import { TemplateType } from "@/features/EditorWindow/state/templateState";
 
 export const createTemplateModalOpen = atom(false);
 
@@ -22,10 +23,11 @@ const CreateTemplate = () => {
     evt.preventDefault();
 
     const template = {
-      content: "placeholder",
-      lastUpdated: new Date(Date.now()).getTime(),
+      type: type as TemplateType,
       name: name,
+      content: "placeholder",
       data: {},
+      lastUpdated: new Date(Date.now()).getTime(),
     };
 
     const id = uniqueId();
@@ -72,7 +74,7 @@ const CreateTemplate = () => {
             name="type"
             value={type}
             setValue={setType}
-            options={["twig", "svelte"]}
+            options={["twig", "svelte", "handlebars"]}
           />
 
           <div className="flex space-x-6 mt-2">

@@ -7,7 +7,7 @@ const Templates = () => {
   const [{ templates }] = useAtom(templatesAtom);
 
   return (
-    <div className="pt-4 overflow-hidden">
+    <div className="pt-4 overflow-hidden min-h-[24rem]">
       <div className="h-8 flex items-center px-4 justify-between">
         <h3 className="font-semibold text-xl">Templates</h3>
         <CreateTemplate />

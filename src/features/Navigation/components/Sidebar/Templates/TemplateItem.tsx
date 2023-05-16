@@ -27,6 +27,18 @@ const TemplateItem: React.FC<ITemplateItem> = ({ name, lastUpdate, id }) => {
     setOpen(false);
   };
 
+  const handleDeleteOnClick = () => {
+    const templates = templatesData.templates;
+    delete templates[id];
+    // activeTemplate
+    setTemplatesData({
+      ...templatesData,
+      activeTemplate:
+        templatesData.activeTemplate === id ? "" : templatesData.activeTemplate,
+      templates: templates,
+    });
+  };
+
   return (
     <li className="w-full bg-neutral-700 px-4 py-4 flex justify-between">
       <div>
@@ -44,6 +56,7 @@ const TemplateItem: React.FC<ITemplateItem> = ({ name, lastUpdate, id }) => {
         <Button.Icon
           Icon={TrashCan}
           className="group"
+          onClick={handleDeleteOnClick}
           iconClassName="group-hover:text-red-600 w-5 h-5"
         />
       </div>
