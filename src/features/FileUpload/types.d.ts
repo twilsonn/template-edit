@@ -2,8 +2,10 @@ declare interface IFile {
   name: string;
   content: string;
   type: string;
-  lastModified: number;
   html: string;
+  size: number;
+  updatedAt: number;
+  createdAt: number;
 }
 
 declare interface IFiles {
