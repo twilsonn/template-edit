@@ -1,11 +1,23 @@
-import Head from "next/head";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
+import Head from "next/head";
 
-const Navigation = dynamic(() => import("@/features/Navigation"), {
+import {
+  DocumentArrowUpIcon,
+  EllipsisHorizontalIcon,
+  HomeIcon,
+  HomeModernIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/solid";
+import { CopyIcon, PenToSquare } from "@/assets/icons";
+import Main from "@/layouts/Main.layout";
+
+const TemplateList = dynamic(() => import("@/features/TemplateList"), {
   ssr: false,
 });
-const EditorWindow = dynamic(() => import("@/features/EditorWindow"), {
+const FilesList = dynamic(() => import("@/features/FilesList"), {
+  ssr: false,
+});
+const Toaster = dynamic(() => import("@/components/Toaster"), {
   ssr: false,
 });
 
@@ -13,19 +25,17 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>TemplateEdit</title>
-        <meta name="description" content="TemplateEdit" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>TemplateEdit - Home</title>
       </Head>
-      <main>
-        <div className="h-screen w-screen flex flex-col">
-          <Suspense fallback="Loading...">
-            <Navigation />
-            <EditorWindow />
-          </Suspense>
+
+      <Toaster position="bottom-right" reverseOrder={false} />
+
+      <Main>
+        <div className="flex-1 grid grid-cols-5 divide-x h-full">
+          <TemplateList />
+          <FilesList />
         </div>
-      </main>
+      </Main>
     </>
   );
 }
