@@ -28,7 +28,7 @@ const DataEditor: React.FC<IDataEditor> = ({ height, width }) => {
       const newVersion = {
         [activeTemplate]: {
           ...currentTemplate,
-          lastUpdated: new Date(Date.now()).getTime(),
+          updatedAt: new Date(Date.now()).getTime(),
           data,
         },
       };

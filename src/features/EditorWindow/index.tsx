@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useAtom, useAtomValue } from "jotai";
+import React, { useEffect, useState } from "react";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useElementSize } from "usehooks-ts";
 import { editorSizeAtom, templatesAtom } from "./state";
 import SplitPane from "./components/SplitPane";
@@ -7,11 +7,14 @@ import { TemplateEditor } from "./TemplateEditor";
 import DataEditor from "./DataEditor";
 import Renderer from "../Renderer";
 
-const EditorWindow: React.FC = () => {
+const EditorWindow: React.FC<{ id: string }> = ({ id }) => {
   const [contentRef, { width, height }] = useElementSize();
   const [{ editor, window }, setSize] = useAtom(editorSizeAtom);
   const { width: editorWidth, height: editorHeight } = editor;
   const { templates, activeTemplate } = useAtomValue(templatesAtom);
+  const setTemplates = useSetAtom(templatesAtom);
+
+  const [templateLoaded, setTemplateLoaded] = useState(false);
 
   const sizes = {
     minSize: 200,
@@ -42,6 +45,15 @@ const EditorWindow: React.FC = () => {
   };
 
   useEffect(() => {
+    setTemplates({
+      templates,
+      activeTemplate: id,
+    });
+
+    setTemplateLoaded(Boolean(templates[id]));
+  }, [templates, id, setTemplates, setTemplateLoaded]);
+
+  useEffect(() => {
     setSize({
       editor,
       window: {
@@ -51,7 +63,7 @@ const EditorWindow: React.FC = () => {
     });
   }, [width, height]);
 
-  return (
+  return templateLoaded ? (
     <div ref={contentRef} className="flex-grow relative">
       <SplitPane
         className="bg-neutral-100"
@@ -89,6 +101,13 @@ const EditorWindow: React.FC = () => {
           data={templates[activeTemplate]?.data}
         />
       </SplitPane>
+    </div>
+  ) : (
+    <div className="w-full h-full flex items-center justify-center flex-col">
+      <h2 className="font-semibold text-2xl mb-4">Error!</h2>
+      <p>
+        No template found with ID <b>{id}</b>
+      </p>
     </div>
   );
 };

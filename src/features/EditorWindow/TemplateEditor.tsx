@@ -65,6 +65,7 @@ const TemplateEditor: React.FC<ITemplateEditor> = ({ height, width }) => {
             [activeTemplate]: {
               ...templates[activeTemplate],
               content: newContent,
+              updatedAt: new Date(Date.now()).getTime(),
             },
           },
           activeTemplate
