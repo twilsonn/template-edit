@@ -10,7 +10,7 @@ const FileItem: React.FC<IFile & { id: string }> = ({
   id: fileId,
   name,
   type,
-  lastModified,
+  updatedAt,
   html,
 }) => {
   const [files, setFiles] = useAtom(filesAtom);
@@ -40,7 +40,7 @@ const FileItem: React.FC<IFile & { id: string }> = ({
       <div>
         <p>files/{name}</p>
         <p className="text-sm text-neutral-300">
-          last Updated: {new Date(lastModified).toDateString()}
+          last Updated: {new Date(updatedAt).toDateString()}
         </p>
       </div>
       <div className="flex items-center space-x-2">

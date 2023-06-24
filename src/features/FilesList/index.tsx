@@ -13,9 +13,7 @@ const FilesList = () => {
 
   const handleOnRemove = (key: string) => {
     delete files[key];
-    setFiles({
-      ...files,
-    });
+    setFiles({ ...files });
   };
 
   const handleOnCopy = (content: string) => {
@@ -125,7 +123,7 @@ const FilesList = () => {
                         <button
                           type="button"
                           className="h-10 w-10 rounded-md bg-gray-100 px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200 mr-2"
-                          onClick={() => handleOnCopy(id)}
+                          onClick={() => handleOnCopy(file.html)}
                         >
                           <CopyIcon className="w-5 h-5 text-gray-500" />
                           <span className="sr-only">copy {file.name}</span>
@@ -133,7 +131,7 @@ const FilesList = () => {
                         <button
                           type="button"
                           className="h-10 rounded-md bg-red-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500"
-                          onClick={() => handleOnRemove(file.html)}
+                          onClick={() => handleOnRemove(id)}
                         >
                           Remove
                           <span className="sr-only">, {file.name}</span>

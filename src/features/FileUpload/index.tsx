@@ -4,8 +4,6 @@ import { decrypt, encrypt } from "crypto-js/aes";
 import { atomWithLocalStorage } from "@/utils/AtomWithLocalStorage";
 import { useAtom } from "jotai";
 import { encode } from "js-base64";
-import Button from "@/components/Button";
-import { Upload } from "@/assets/icons";
 import { DocumentArrowUpIcon } from "@heroicons/react/24/solid";
 import Dropzone, { Accept, DropEvent, FileRejection } from "react-dropzone";
 
@@ -43,43 +41,41 @@ const FileUpload: React.FC = () => {
   const [files, setFiles] = useAtom(filesAtom);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const uploadFile = useMemo<DropHandler>(
-    () => (filesAsList) => {
-      const reader = new FileReader();
+  const uploadFile: DropHandler = (filesAsList) => {
+    const reader = new FileReader();
 
-      if (filesAsList.length > 0) {
-        for (const file of filesAsList) {
-          if (file.size > 5242880) continue;
+    if (filesAsList.length > 0) {
+      for (const file of filesAsList) {
+        if (file.size > 5242880) continue;
 
-          reader.onload = () => {
-            if (reader.result && typeof reader.result === "string") {
-              const encrypted = encrypt(reader.result, "test");
+        reader.onload = () => {
+          if (reader.result && typeof reader.result === "string") {
+            const encrypted = encrypt(reader.result, "test");
 
-              const type = getTypeFromExtention(file.name);
-              setFiles({
-                ...files,
-                [encode(file.name)]: {
-                  name: file.name,
-                  content: encrypted.toString(),
-                  type,
-                  updatedAt: new Date(Date.now()).getTime(),
-                  createdAt: file.lastModified,
-                  html:
-                    type === "script"
-                      ? `<script src="files/${file.name}"></script>`
-                      : `<link href="files/${file.name}" />`,
-                  size: file.size,
-                },
-              });
-            }
-          };
+            const type = getTypeFromExtention(file.name);
 
-          reader.readAsText(file);
-        }
+            setFiles({
+              ...files,
+              [encode(file.name)]: {
+                name: file.name,
+                content: encrypted.toString(),
+                type,
+                updatedAt: new Date(Date.now()).getTime(),
+                createdAt: file.lastModified,
+                html:
+                  type === "script"
+                    ? `<script src="files/${file.name}"></script>`
+                    : `<link href="files/${file.name}" />`,
+                size: file.size,
+              },
+            });
+          }
+        };
+
+        reader.readAsText(file);
       }
-    },
-    [files, setFiles]
-  );
+    }
+  };
 
   return (
     <Dropzone onDrop={uploadFile} accept={filesAccept}>
