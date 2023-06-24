@@ -1,4 +1,4 @@
-import Navigation from "@/features/Navigation_";
+import Navigation from "@/features/Navigation";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
