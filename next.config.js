@@ -1,12 +1,22 @@
 /** @type {import('next').NextConfig} */
 
-const withPWA = require("next-pwa")({
-  dest: "public",
-});
+const isProd = process.env.NODE_ENV === "production";
 
-module.exports = withPWA({
-  webpack: (config) => {
-    config.resolve.fallback = { fs: false };
-    return config;
-  },
-});
+if (isProd) {
+  const withPWA = require("next-pwa")({
+    dest: "public",
+  });
+
+  module.exports = withPWA({
+    webpack: (config) => {
+      config.resolve.fallback = { fs: false };
+      return config;
+    },
+  });
+} else {
+  const nextConfig = {
+    reactStrictMode: true,
+  };
+
+  module.exports = nextConfig;
+}
