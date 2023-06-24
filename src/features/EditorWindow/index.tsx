@@ -6,12 +6,13 @@ import SplitPane from "./components/SplitPane";
 import { TemplateEditor } from "./TemplateEditor";
 import DataEditor from "./DataEditor";
 import Renderer from "../Renderer";
+import useTemplateStore from "@/store/templateStore";
 
 const EditorWindow: React.FC<{ id: string }> = ({ id }) => {
   const [contentRef, { width, height }] = useElementSize();
   const [{ editor, window }, setSize] = useAtom(editorSizeAtom);
   const { width: editorWidth, height: editorHeight } = editor;
-  const { templates, activeTemplate } = useAtomValue(templatesAtom);
+  const { templates, active, setActive } = useTemplateStore();
   const setTemplates = useSetAtom(templatesAtom);
 
   const [templateLoaded, setTemplateLoaded] = useState(false);
@@ -45,15 +46,6 @@ const EditorWindow: React.FC<{ id: string }> = ({ id }) => {
   };
 
   useEffect(() => {
-    setTemplates({
-      templates,
-      activeTemplate: id,
-    });
-
-    setTemplateLoaded(Boolean(templates[id]));
-  }, [templates, id, setTemplates, setTemplateLoaded]);
-
-  useEffect(() => {
     setSize({
       editor,
       window: {
@@ -62,6 +54,11 @@ const EditorWindow: React.FC<{ id: string }> = ({ id }) => {
       },
     });
   }, [width, height]);
+
+  useEffect(() => {
+    const activeTemplate = setActive(id);
+    setTemplateLoaded(Boolean(activeTemplate));
+  }, [templates, id, setTemplateLoaded, setActive]);
 
   return templateLoaded ? (
     <div ref={contentRef} className="flex-grow relative">
@@ -96,9 +93,9 @@ const EditorWindow: React.FC<{ id: string }> = ({ id }) => {
 
         {/* render preview */}
         <Renderer
-          type={templates[activeTemplate]?.type}
-          content={templates[activeTemplate]?.content}
-          data={templates[activeTemplate]?.data}
+          type={templates[active]?.type}
+          content={templates[active]?.content}
+          data={templates[active]?.data}
         />
       </SplitPane>
     </div>

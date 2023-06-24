@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Editor from "./components/Editor";
 import { useAtom } from "jotai";
 import { templatesAtom } from "./state";
 import { default as Monaco } from "@monaco-editor/react";
+import useTemplateStore from "@/store/templateStore";
 
 interface IDataEditor {
   height: number;
@@ -11,57 +12,28 @@ interface IDataEditor {
 
 const DataEditor: React.FC<IDataEditor> = ({ height, width }) => {
   const editorRef = useRef<typeof Monaco>(null);
-  const [{ activeTemplate, templates }, setTemplates] = useAtom(templatesAtom);
+  const { templates, active, setData } = useTemplateStore();
+  const [initialContent] = useState(templates[active]?.data);
 
-  const updateTemplate = (newData: any) => {
-    const currentTemplate = templates[activeTemplate];
-
-    let data;
-
-    try {
-      data = JSON.parse(newData);
-    } catch (error) {
-      return;
-    }
-
-    if (currentTemplate && data) {
-      const newVersion = {
-        [activeTemplate]: {
-          ...currentTemplate,
-          updatedAt: new Date(Date.now()).getTime(),
-          data,
-        },
-      };
-
-      setTemplates({
-        activeTemplate,
-        templates: {
-          ...templates,
-          ...newVersion,
-        },
-      });
-    }
-  };
+  const updateTemplate = (data: any) => setData(active, data);
 
   useEffect(() => {
-    if (templates[activeTemplate]?.data) {
+    if (templates[active]?.data) {
       // @ts-ignore
-      editorRef?.current?.setValue(
-        JSON.stringify(templates[activeTemplate]?.data)
-      );
+      editorRef?.current?.setValue(templates[active]?.data);
     } else {
       // @ts-ignore
       editorRef?.current?.setValue("");
     }
-  }, [activeTemplate]);
+  }, [active]);
 
-  return activeTemplate ? (
+  return active ? (
     <Editor
       ref={editorRef}
       setEditorContent={updateTemplate}
       height={height}
       width={width}
-      initialContent={JSON.stringify(templates[activeTemplate]?.data)}
+      initialContent={initialContent}
       language="json"
     />
   ) : null;

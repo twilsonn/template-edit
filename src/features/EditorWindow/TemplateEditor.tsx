@@ -1,91 +1,48 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAtom } from "jotai";
 import Editor from "./components/Editor";
 import { templatesAtom } from "./state";
 import { ITemplate } from "./state/templateState";
 import { default as Monaco } from "@monaco-editor/react";
+import useTemplateStore from "@/store/templateStore";
 
 interface ITemplateEditor {
   height: number;
   width: number;
 }
 
-const TemplateEditor: React.FC<ITemplateEditor> = ({ height, width }) => {
+const TemplateEditor: React.FC<ITemplateEditor> = (props) => {
+  const { height, width } = props;
+
+  const { setContent, active, templates } = useTemplateStore();
   const editorRef = useRef<typeof Monaco>(null);
-  const [{ activeTemplate, templates }, setTemplates] = useAtom(templatesAtom);
 
-  const updateTemplate = useMemo(
-    () =>
-      (
-        templates: {
-          [key: string]: ITemplate;
-        },
-        activeTemplate: string
-      ) => {
-        const currentTemplate = templates[activeTemplate];
+  const templateType = templates[active]?.type;
 
-        if (currentTemplate) {
-          const newVersion = {
-            [activeTemplate]: {
-              ...currentTemplate,
-              lastUpdated: new Date(Date.now()).getTime(),
-              content: currentTemplate.content,
-            },
-          };
+  const [initialContent] = useState(templates[active]?.content);
 
-          setTemplates({
-            activeTemplate,
-            templates: {
-              ...templates,
-              ...newVersion,
-            },
-          });
-        }
-      },
-    [setTemplates]
+  const handleEditorChanges = useCallback(
+    (newContent: string) => setContent(active, newContent),
+    [active, setContent]
   );
 
   useEffect(() => {
-    updateTemplate(templates, activeTemplate);
-    if (templates[activeTemplate]?.content) {
+    if (templates[active]?.content) {
       // @ts-ignore
-      editorRef?.current?.setValue(templates[activeTemplate]?.content);
+      //editorRef?.current?.setValue(templates[active]?.content);
     } else {
       // @ts-ignore
       editorRef?.current?.setValue("");
     }
-  }, [activeTemplate]);
+  }, [active, templates]);
 
-  const handleEditorChanges = useMemo(
-    () => (newContent: string) => {
-      if (templates[activeTemplate]) {
-        updateTemplate(
-          {
-            ...templates,
-            [activeTemplate]: {
-              ...templates[activeTemplate],
-              content: newContent,
-              updatedAt: new Date(Date.now()).getTime(),
-            },
-          },
-          activeTemplate
-        );
-      }
-    },
-    [activeTemplate, templates, updateTemplate]
-  );
-
-  return activeTemplate ? (
+  return active ? (
     <Editor
       ref={editorRef}
       height={height}
       width={width}
-      initialContent={templates[activeTemplate]?.content}
-      language={
-        templates[activeTemplate]?.type === "twig"
-          ? "html"
-          : templates[activeTemplate]?.type
-      }
+      initialContent={initialContent}
+      language={templateType === "twig" ? "html" : templateType}
       setEditorContent={handleEditorChanges}
     />
   ) : null;
