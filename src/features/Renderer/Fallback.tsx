@@ -18,7 +18,7 @@ const Fallback: React.FC<any> = ({ error }) => {
           </p>
         </div>
         <div className="p-4 md:p-5">
-          <code style={{ color: "red" }}>{error}</code>
+          <code style={{ color: "red" }}>{error.message}</code>
         </div>
       </div>
     </div>

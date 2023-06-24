@@ -6,12 +6,7 @@ const render: RenderFunction = ({ content, data }) => {
     data: content,
   });
 
-  try {
-    const html = twigRenderer.render(data);
-    return { html };
-  } catch (error) {
-    return { html: "", error: error as Error };
-  }
+  return twigRenderer.render(data);
 };
 
 export default render;

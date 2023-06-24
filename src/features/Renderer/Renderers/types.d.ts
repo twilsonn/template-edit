@@ -3,9 +3,4 @@ export type RenderInput = {
   content: string;
 };
 
-export type RenderOutput = {
-  html: string;
-  error?: Error;
-};
-
-export type RenderFunction = (args: RenderInput) => RenderOutput;
+export type RenderFunction = (args: RenderInput) => string;
