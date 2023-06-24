@@ -18,7 +18,7 @@ const Modal: React.FC<PropsWithChildren<IModal>> = ({
   return (
     <Portal>
       <div className={`modal-wrapper ${open ? "open" : ""}`}>
-        <div className="modal-container">{children}</div>
+        <div className={`modal-container min-w-[20rem]`}>{children}</div>
       </div>
     </Portal>
   );

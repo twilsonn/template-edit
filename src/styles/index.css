@@ -11,14 +11,14 @@
 }
 
 .modal-wrapper.open {
-  @apply bg-opacity-80 pointer-events-auto z-50 opacity-100;
+  @apply bg-opacity-40 pointer-events-auto z-50 opacity-100;
 }
 
 .modal-wrapper .modal-container {
-  @apply bg-neutral-900 max-w-2xl rounded-md p-6 text-neutral-200 scale-95;
+  @apply bg-white max-w-2xl rounded-md p-6 scale-75 transition-transform;
 }
 
-.modal-container.open .modal-container {
+.modal-wrapper.open .modal-container {
   @apply scale-100;
 }
 
