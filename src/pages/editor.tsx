@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 const Navigation = dynamic(() => import("@/features/Navigation"), {
   ssr: false,
 });
+
 const EditorWindow = dynamic(() => import("@/features/EditorWindow"), {
   ssr: false,
 });
@@ -23,7 +24,7 @@ export default function Home({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>TemplateEdit - Editor ({id})</title>
+        <title>TemplateEdit - Editor</title>
       </Head>
 
       <Toaster position="bottom-right" reverseOrder={false} />
