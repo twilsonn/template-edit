@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useMemo, useState } from "react";
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react";
 import { default as Monaco, OnChange, OnMount } from "@monaco-editor/react";
 import debounce from "lodash.debounce";
 import { BarLoader } from "react-spinners";
@@ -43,6 +43,14 @@ const Editor = forwardRef<typeof Monaco, IEditorProps>(function Editor(
     }, 2500);
   };
 
+  useEffect(() => {
+    // @ts-ignore
+    if (ref && ref.current) {
+      // @ts-ignore
+      ref.current.getAction("editor.action.formatDocument")?.run();
+    }
+  }, [language]);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleOnChange: OnChange = (content) => {
     setEditorContent(content || "");
@@ -52,14 +60,6 @@ const Editor = forwardRef<typeof Monaco, IEditorProps>(function Editor(
     () => debounce(handleOnChange, 500),
     [handleOnChange]
   );
-
-  useEffect(() => {
-    // @ts-ignore
-    if (ref && ref.current) {
-      // @ts-ignore
-      ref.current.getAction("editor.action.formatDocument")?.run();
-    }
-  }, [language]);
 
   useEffect(() => {
     return () => {
