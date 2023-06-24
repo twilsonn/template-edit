@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Editor from "./components/Editor";
 import { useAtom } from "jotai";
-import { templatesAtom } from "./state";
 import { default as Monaco } from "@monaco-editor/react";
 import useTemplateStore from "@/store/templateStore";
 

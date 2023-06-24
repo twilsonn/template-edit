@@ -8,12 +8,11 @@ import { filesAtom } from "../FileUpload";
 
 import Fallback from "./Fallback";
 import Render from "./Renderers";
-import { TemplateType } from "../EditorWindow/state/templateState";
 import { useEffectOnce } from "usehooks-ts";
 import { BarLoader } from "react-spinners";
 
 interface IRendererProps {
-  type: TemplateType;
+  type: Template["type"];
   content: string;
   data: string;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { useElementSize } from "usehooks-ts";
-import { editorSizeAtom, templatesAtom } from "./state";
+import { editorSizeAtom } from "./state";
 import SplitPane from "./components/SplitPane";
 import { TemplateEditor } from "./TemplateEditor";
 import DataEditor from "./DataEditor";
@@ -13,7 +13,6 @@ const EditorWindow: React.FC<{ id: string }> = ({ id }) => {
   const [{ editor, window }, setSize] = useAtom(editorSizeAtom);
   const { width: editorWidth, height: editorHeight } = editor;
   const { templates, active, setActive } = useTemplateStore();
-  const setTemplates = useSetAtom(templatesAtom);
 
   const [templateLoaded, setTemplateLoaded] = useState(false);
 

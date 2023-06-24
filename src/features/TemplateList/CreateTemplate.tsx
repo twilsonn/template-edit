@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { atom, useAtom } from "jotai";
-import { TemplateType } from "@/features/EditorWindow/state/templateState";
 import useTemplateStore from "@/store/templateStore";
 
 import Button from "@/components/Button";
@@ -23,7 +22,7 @@ const CreateTemplate = () => {
     evt.preventDefault();
 
     createTemplate({
-      type: type as TemplateType,
+      type: type as Template["type"],
       name: name,
       content: "placeholder",
       data: "{}",
