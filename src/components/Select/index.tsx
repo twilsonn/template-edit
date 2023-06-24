@@ -19,7 +19,7 @@ const Select: React.FC<ISelect> = ({ name, value, setValue, options }) => {
       <select
         id={name}
         onChange={onChange}
-        className="w-full bg-neutral-700 rounded-md py-3 px-3 focus:outline-none border-2 border-transparent focus:border-neutral-400"
+        className="py-3 px-4 pr-9 block w-full border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 "
       >
         {options.map((option) => (
           <option key={option} value={option}>
