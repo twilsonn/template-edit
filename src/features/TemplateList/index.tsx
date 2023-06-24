@@ -1,10 +1,10 @@
 import { PenToSquare } from "@/assets/icons";
-import { useAtom, useAtomValue } from "jotai";
-import { templatesAtom } from "../EditorWindow/state";
 import TimeAgo from "timeago-react";
-import { controllerAtom } from "../EditorController/controllerState";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import useTemplateStore from "@/store/templateStore";
+import { atom, useAtom } from "jotai";
+import { CreateTemplate, createTemplateModalOpen } from "./CreateTemplate";
 
 const files = [
   {
@@ -25,21 +25,13 @@ const files = [
 
 const TemplateList = () => {
   const router = useRouter();
-  const { templates } = useAtomValue(templatesAtom);
-  const [controller, setController] = useAtom(controllerAtom);
+  const { templates, openTemplate } = useTemplateStore();
   const [loadingTemplate, setLoadingTemplate] = useState(false);
+  const [open, setOpen] = useAtom(createTemplateModalOpen);
 
   const handleEditClick: (key: string) => void = (key) => {
     setLoadingTemplate(true);
-
-    setController({
-      ...controller,
-      [key]: {
-        isActive: true,
-        isSaved: true,
-      },
-    });
-
+    openTemplate(key);
     router.push(`/editor?id=${key}`);
   };
 
@@ -51,9 +43,12 @@ const TemplateList = () => {
           <button
             type="button"
             className="h-10 rounded-md bg-blue-500 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 mr-2"
+            onClick={() => setOpen(true)}
           >
             Create Template
           </button>
+
+          <CreateTemplate />
         </div>
 
         <div>
