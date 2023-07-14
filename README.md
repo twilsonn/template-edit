@@ -7,9 +7,13 @@
 TemplateEdit is a software project that allows users to edit template files such as twig and svelte, with a live preview render. It also has a data editor to customize what data gets injected into the template. TemplateEdit provides an easy and intuitive way to create and edit templates with a live preview.
 
 
-## Demo
+## Roadmap
 
-To add
+- [x] Implement Monaco editor within React
+- [x] Add functionality to create templates using the editor
+- [x] Add logic to render templates inside a preview window
+- [x] Add the ability to upload and use files within a template
+- [ ] Add a home dashboard to display all templates and files
 
 
 ## Run Locally
