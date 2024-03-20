@@ -5,10 +5,6 @@ import Main from "@/layouts/Main.layout";
 import { AppProps } from "next/app";
 import { useRouter } from "next/router";
 
-const Navigation = dynamic(() => import("@/features/Navigation"), {
-  ssr: false,
-});
-
 const EditorWindow = dynamic(() => import("@/features/EditorWindow"), {
   ssr: false,
 });
@@ -17,7 +13,7 @@ const Toaster = dynamic(() => import("@/components/Toaster"), {
   ssr: false,
 });
 
-export default function Home({ Component, pageProps }: AppProps) {
+export default function Home() {
   const router = useRouter();
   const id = router.query.id as string;
 
