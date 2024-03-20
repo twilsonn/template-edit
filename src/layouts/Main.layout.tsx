@@ -1,4 +1,3 @@
-import Navigation from "@/features/Navigation";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
@@ -16,8 +15,6 @@ const Main: React.FC<React.PropsWithChildren> = ({ children }) => {
       </Head>
 
       <main className="w-screen h-screen flex flex-row">
-        <Navigation />
-
         <div className="flex-grow">
           <div className="px-3 w-full h-16 border-b flex items-center">
             <EditorController />
