@@ -6,7 +6,6 @@ import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import { Plus } from "@/assets/icons";
 
 export const createTemplateModalOpen = atom(false);
 
@@ -40,19 +39,9 @@ const CreateTemplate = () => {
       <h3 className="text-lg font-semibold pb-2">Create New Template</h3>
 
       <form onSubmit={handleOnFormSubmit} onReset={handleOnFormReset}>
-        <Input
-          name="name"
-          value={name}
-          setValue={setName}
-          placeholder="Template #1"
-        />
+        <Input name="name" value={name} setValue={setName} placeholder="Template #1" />
 
-        <Select
-          name="type"
-          value={type}
-          setValue={setType}
-          options={["twig", "svelte", "handlebars"]}
-        />
+        <Select name="type" value={type} setValue={setType} options={["twig", "handlebars"]} />
 
         <div className="flex space-x-6 mt-2">
           <Button.Secondary type="reset" className="w-full mt-4">
@@ -67,4 +56,4 @@ const CreateTemplate = () => {
   );
 };
 
-export { CreateTemplate };
+export default CreateTemplate;
