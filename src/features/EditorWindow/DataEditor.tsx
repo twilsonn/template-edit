@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import Editor from "./components/Editor";
-import { useAtom } from "jotai";
 import { default as Monaco } from "@monaco-editor/react";
 import useTemplateStore from "@/store/templateStore";
 
@@ -17,12 +16,14 @@ const DataEditor: React.FC<IDataEditor> = ({ height, width }) => {
   const updateTemplate = (data: any) => setData(active, data);
 
   useEffect(() => {
+    if (!editorRef.current) return;
+
     if (templates[active]?.data) {
       // @ts-ignore
-      editorRef?.current?.setValue(templates[active]?.data);
+      editorRef.current.setValue(templates[active]?.data);
     } else {
       // @ts-ignore
-      editorRef?.current?.setValue("");
+      editorRef.current.setValue("");
     }
   }, [active]);
 
