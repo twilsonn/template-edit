@@ -4,11 +4,14 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta name="application-name" content="PWA App" />
+        <meta name="application-name" content="TemplateEdit" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="PWA App" />
-        <meta name="description" content="Best PWA App in the world" />
+        <meta name="apple-mobile-web-app-title" content="TemplateEdit" />
+        <meta
+          name="description"
+          content="TemplateEdit provides an easy and intuitive way to create and edit templates with a live preview."
+        />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
@@ -17,42 +20,23 @@ export default function Document() {
         <meta name="theme-color" content="#000000" />
 
         <link rel="apple-touch-icon" href="/touch-icon-iphone.png" />
-        <link
-          rel="apple-touch-icon"
-          sizes="152x152"
-          href="/touch-icon-ipad.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/touch-icon-iphone-retina.png"
-        />
-        <link
-          rel="apple-touch-icon"
-          sizes="167x167"
-          href="/touch-icon-ipad-retina.png"
-        />
+        <link rel="apple-touch-icon" sizes="152x152" href="/touch-icon-ipad.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/touch-icon-iphone-retina.png" />
+        <link rel="apple-touch-icon" sizes="167x167" href="/touch-icon-ipad-retina.png" />
 
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <link rel="shortcut icon" href="/favicon.ico" />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="PWA App" />
-        <meta property="og:description" content="Best PWA App in the world" />
-        <meta property="og:site_name" content="PWA App" />
+        <meta property="og:title" content="TemplateEdit" />
+        <meta
+          property="og:description"
+          content="TemplateEdit provides an easy and intuitive way to create and edit templates with a live preview."
+        />
+        <meta property="og:site_name" content="TemplateEdit" />
       </Head>
       <body>
         <Main />
